@@ -10,6 +10,8 @@ function closeModal(popup) {
     popup.classList.remove('popup_is-opened');
 }
 
+
+
 // Профиль
 
 function handleProfileFormSubmit(event) {
@@ -55,6 +57,8 @@ const imageImage = imagePopup.querySelector('.popup__image');
 const closeImageButton = imagePopup.querySelector('.popup__close');
 
 closeImageButton.addEventListener('click', () => closeModal(imagePopup));
+
+
 
 // Карточки
 
@@ -115,6 +119,8 @@ addCardButton.addEventListener('click', () => {
 closeCardButton.addEventListener('click', () => closeModal(cardPopup));
 
 cardFrom.addEventListener('submit', handleCardFormSubmit);
+
+
 
 // Загрузка страницы
 
