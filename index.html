@@ -40,9 +40,15 @@
         <button type="button" class="popup__close"></button>
         <h3 class="popup__title">Редактировать профиль</h3>
         <form class="popup__form" name="edit-profile">
-          <input type="text" name="name" class="popup__input popup__input_type_name" placeholder="Имя" required>
-          <input type="text" name="description" class="popup__input popup__input_type_description" placeholder="Занятие"
-            required>
+          <label class="popup__field">
+            <input type="text" name="name" class="popup__input popup__input_type_name" id="name-input" placeholder="Имя" required minlength="2" maxlength="40">
+            <span class="popup__error-text name-input-error"></span>
+          </label>
+          <label class="popup__field">
+            <input type="text" name="description" class="popup__input popup__input_type_description"
+              placeholder="Занятие" id="descr-input" required minlength="2" maxlength="200">
+            <span class="popup__error-text descr-input-error"></span>
+          </label>
           <button type="submit" class="button popup__button">Сохранить</button>
         </form>
       </div>
@@ -52,11 +58,17 @@
         <button type="button" class="popup__close"></button>
         <h3 class="popup__title">Новое место</h3>
         <form class="popup__form" name="new-place">
-          <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название"
-            required>
-          <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку"
-            required>
-          <button type="submit" class="button popup__button">Сохранить</button>
+          <label class="popup__field">
+            <input type="text" name="place-name" class="popup__input popup__input_type_card-name" placeholder="Название" id="mesto-input"
+              required minlength="2" maxlength="30">
+            <span class="popup__error-text mesto-input-error"></span>
+          </label>
+          <label class="popup__field">
+            <input type="url" name="link" class="popup__input popup__input_type_url" placeholder="Ссылка на картинку" id="url-input"
+              required>
+            <span class="popup__error-text url-input-error"></span>
+          </label>
+          <button type="submit" class="button popup__button popup__button_inactive" disabled>Сохранить</button>
         </form>
       </div>
     </div>

@@ -1,0 +1,14 @@
+.popup__error-text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+
+    color: #FF0000;
+
+    opacity: 0;
+    position: relative;
+    top: 5px;
+    transition: 0.3s;
+    z-index: 1;
+}
