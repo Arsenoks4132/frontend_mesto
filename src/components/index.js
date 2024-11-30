@@ -47,6 +47,7 @@ profileFrom.addEventListener('submit', handleProfileFormSubmit);
 const imagePopup = document.querySelector('.popup_type_image');
 
 const imageImage = imagePopup.querySelector('.popup__image');
+const imageCaption = imagePopup.querySelector('.popup__caption');
 const closeImageButton = imagePopup.querySelector('.popup__close');
 
 closeImageButton.addEventListener('click', () => closeModal(imagePopup));
@@ -91,6 +92,7 @@ cardsList.addEventListener('click', (event) => {
     if (event.target.classList.contains('card__image')) {
         imageImage.setAttribute('src', '');
         imageImage.setAttribute('src', event.target.src);
+        imageCaption.textContent = event.target.alt;
         openModal(imagePopup);
     }
 });

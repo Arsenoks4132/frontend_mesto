@@ -14,7 +14,7 @@ function createCard(name, link) {
     const cardLikeButton = cardElement.querySelector('.card__like-button');
 
     cardImage.setAttribute('src', link);
-    cardImage.setAttribute('alt', name.toLowerCase());
+    cardImage.setAttribute('alt', name);
 
     cardDeleteButton.addEventListener('click', (event) => event.target.closest('.places__item').remove());
 
