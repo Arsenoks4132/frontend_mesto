@@ -1,0 +1,11 @@
+{
+  "name": "frontend_mesto",
+  "version": "1.0.0",
+  "description": "студент, когорта, стэк",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Arseniy Danov",
+  "license": "ISC"
+}
