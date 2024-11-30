@@ -1,3 +1,5 @@
+import '../pages/index.css';
+
 import { initialCards } from './db.js';
 import { openModal, closeModal } from './modal.js';
 import { createCard } from './card.js';
@@ -84,6 +86,14 @@ closeCardButton.addEventListener('click', () => closeModal(cardPopup));
 
 cardFrom.addEventListener('submit', handleCardFormSubmit);
 
+
+cardsList.addEventListener('click', (event) => {
+    if (event.target.classList.contains('card__image')) {
+        imageImage.setAttribute('src', '');
+        imageImage.setAttribute('src', event.target.src);
+        openModal(imagePopup);
+    }
+});
 
 
 // Загрузка страницы
