@@ -4,6 +4,8 @@
 @import url('./__like-button/_is-active/card__like-button_is-active.css');
 @import url('./__delete-button/card__delete-button.css');
 @import url('./__title/card__title.css');
+@import url('./__like-amount/card__like-amount.css');
+@import url('./__like-group/card__like-group.css');
 
 .card {
   font-family: 'Inter', Arial, sans-serif;

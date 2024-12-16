@@ -1,0 +1,15 @@
+.profile__overlay {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: calc(100% + 2px);
+  height: calc(100% + 2px);
+  background-color: rgba(0, 0, 0, 0);
+  display: flex;
+  border-radius: 50%;
+  transition: background-color 0.3s ease;
+}
+
+.profile__image:hover .profile__overlay {
+  background-color: rgba(0, 0, 0, 0.8);
+}

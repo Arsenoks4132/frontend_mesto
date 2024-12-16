@@ -16,11 +16,15 @@
     </header>
     <main class="content">
       <section class="profile page__section">
-        <div class="profile__image" style="background-image: url(<%=require('./images/avatar.jpg')%>);"></div>
+        <div class="profile__image">
+          <div class="profile__overlay">
+            <i class="profile__icon"></i>
+          </div>
+        </div>
         <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <h1 class="profile__title"></h1>
           <button class="profile__edit-button" type="button"></button>
-          <p class="profile__description">Исследователь океана</p>
+          <p class="profile__description"></p>
         </div>
         <button class="profile__add-button" type="button"></button>
       </section>
@@ -34,6 +38,7 @@
         © 2024 Mesto Russia
       </p>
     </footer>
+
     <div class="popup popup_type_edit">
       <div class="popup__content">
         <button type="button" class="popup__close"></button>
@@ -53,6 +58,7 @@
         </form>
       </div>
     </div>
+
     <div class="popup popup_type_new-card">
       <div class="popup__content">
         <button type="button" class="popup__close"></button>
@@ -72,12 +78,28 @@
         </form>
       </div>
     </div>
+
     <div class="popup popup_type_image">
       <div class="popup__content popup__content_content_image">
         <button type="button" class="popup__close"></button>
         <img src="" alt="" class="popup__image">
         <p class="popup__caption"></p>
       </div>
+    </div>
+  </div>
+
+  <div class="popup popup_type_avatar">
+    <div class="popup__content">
+      <button type="button" class="popup__close"></button>
+      <h3 class="popup__title">Обновить аватар</h3>
+      <form class="popup__form" name="change_avatar">
+        <label class="popup__field">
+          <input type="url" name="avatar" class="popup__input popup__input_type_avatar" id="avatar-input" placeholder="Ссылка на изображение"
+            required>
+          <span class="popup__error-text avatar-input-error"></span>
+        </label>
+        <button type="submit" class="button popup__button">Сохранить</button>
+      </form>
     </div>
   </div>
 
@@ -88,7 +110,10 @@
       <div class="card__description">
         <h2 class="card__title">
         </h2>
-        <button type="button" class="card__like-button"></button>
+        <div class="card__like-group">
+          <button type="button" class="card__like-button"></button>
+          <span class="card__like-amount"></span>
+        </div>
       </div>
     </li>
   </template>

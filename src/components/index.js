@@ -1,23 +1,42 @@
 import '../pages/index.css';
 
-import { initialCards } from './db.js';
 import { openModal, closeModal } from './modal.js';
 import { createCard } from './card.js';
 import { enableValidation } from './validate.js';
+import { getInitialCards, getUserInfo, changeProfile, addCard, changeAvatar } from './api.js';
+
+// Пользователь
+
+const thisUser = await getUserInfo().then((data) => data);
 
 // Профиль
 
 function handleProfileFormSubmit(event) {
     event.preventDefault();
 
-    userName.textContent = profileNameInput.value;
-    userText.textContent = profileTextInput.value;
+    profileFormButton.textContent = "Сохранение...";
 
-    closeModal(profilePopup);
+    changeProfile(profileNameInput.value, profileTextInput.value)
+        .then(userInfo => {
+            userName.textContent = userInfo.name;
+            userText.textContent = userInfo.about;
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            closeModal(profilePopup);
+            profileFormButton.textContent = "Сохранить";
+        });
 }
 
 const userName = document.querySelector('.profile__title');
 const userText = document.querySelector('.profile__description');
+const userAvatar = document.querySelector('.profile__image');
+
+userName.textContent = thisUser.name;
+userText.textContent = thisUser.about;
+userAvatar.style.backgroundImage = `url(${thisUser.avatar})`;
 
 const editProfileButton = document.querySelector('.profile__edit-button');
 
@@ -28,7 +47,18 @@ const profileFrom = profilePopup.querySelector('.popup__form');
 const profileNameInput = profilePopup.querySelector('.popup__input_type_name');
 const profileTextInput = profilePopup.querySelector('.popup__input_type_description');
 const closeProfileButton = profilePopup.querySelector('.popup__close');
+const profileFormButton = profilePopup.querySelector('.popup__button');
 
+
+const avatarPopup = document.querySelector('.popup_type_avatar');
+const avatarForm = avatarPopup.querySelector('.popup__form');
+const avatarUrlInput = avatarPopup.querySelector('.popup__input_type_avatar');
+const avatarFormButton = avatarPopup.querySelector('.popup__button');
+
+userAvatar.addEventListener('click', () => {
+    avatarUrlInput.value = userAvatar.style.backgroundImage.slice(5, -2)
+    openModal(avatarPopup);
+});
 
 editProfileButton.addEventListener('click', () => {
     profileNameInput.value = userName.textContent;
@@ -40,7 +70,25 @@ closeProfileButton.addEventListener('click', () => closeModal(profilePopup));
 
 profileFrom.addEventListener('submit', handleProfileFormSubmit);
 
+function handleAvatarSubmit(event) {
+    event.preventDefault();
 
+    avatarFormButton.textContent = "Сохранение...";
+
+    changeAvatar(avatarUrlInput.value)
+        .then(userInfo => {
+            userAvatar.style.backgroundImage = `url(${userInfo.avatar})`;
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            closeModal(avatarPopup);
+            avatarFormButton.textContent = "Сохранить";
+        });
+}
+
+avatarForm.addEventListener('submit', handleAvatarSubmit);
 
 // Изображение
 
@@ -61,7 +109,19 @@ const cardsList = document.querySelector('.places__list');
 function handleCardFormSubmit(event) {
     event.preventDefault();
 
-    cardsList.prepend(createCard(cardNameInput.value, cardLinkInput.value));
+    cardFormButton.textContent = "Сохранение...";
+
+    addCard(cardNameInput.value, cardLinkInput.value)
+        .then(data => {
+            cardsList.prepend(createCard(data, thisUser._id))
+        })
+        .catch(err => {
+            console.log(err);
+        })
+        .finally(() => {
+            closeModal(cardPopup);
+            cardFormButton.textContent = "Сохранить";
+        });
 
     closeModal(cardPopup);
 }
@@ -75,6 +135,7 @@ const cardFrom = cardPopup.querySelector('.popup__form');
 const cardNameInput = cardPopup.querySelector('.popup__input_type_card-name');
 const cardLinkInput = cardPopup.querySelector('.popup__input_type_url');
 const closeCardButton = cardPopup.querySelector('.popup__close');
+const cardFormButton = cardPopup.querySelector('.popup__button');
 
 
 addCardButton.addEventListener('click', () => {
@@ -100,7 +161,10 @@ cardsList.addEventListener('click', (event) => {
 
 // Загрузка страницы
 
-initialCards.forEach((item) => cardsList.append(createCard(item.name, item.link)));
+getInitialCards()
+    .then((data) => {
+        data.forEach((item) => cardsList.append(createCard(item, thisUser._id)));
+    });
 
 profilePopup.classList.add('popup_is-animated');
 cardPopup.classList.add('popup_is-animated');
