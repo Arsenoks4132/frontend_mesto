@@ -6,157 +6,61 @@ const config = {
     }
 }
 
-function getInitialCards() {
-    return fetch(`${config.baseUrl}/cards`, {
-        headers: config.headers
-    })
+function sendRequest(urlPath, method, body) {
+    const parameters = {
+        method: method,
+        headers: config.headers,
+    }
+    if (method !== 'GET') {
+        parameters.body = JSON.stringify(body);
+    }
+    return fetch(`${config.baseUrl}/${urlPath}`, parameters)
         .then((res) => {
             if (res.ok) {
                 return res.json();
             }
-            else {
-                return Promise.reject(res.status);
-            }
+            return Promise.reject(`Ошибка: ${res.status}`);
         })
-        .catch((err) => {
-            console.log(err);
-        })
+}
+
+function getInitialCards() {
+    return sendRequest('cards', 'GET', {});
 }
 
 function getUserInfo() {
-    return fetch(`${config.baseUrl}/users/me`, {
-        headers: config.headers
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                return Promise.reject(res.status);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    return sendRequest('users/me', 'GET', {});
 }
 
 function deleteCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/${cardId}`, {
-        method: 'DELETE',
-        headers: config.headers
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                return Promise.reject(res.status);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    return sendRequest(`cards/${cardId}`, 'DELETE', {});
 }
 
 function likeCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-        method: 'PUT',
-        headers: config.headers
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                return Promise.reject(res.status);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    return sendRequest(`cards/likes/${cardId}`, 'PUT', {});
 }
 
 function unlikeCard(cardId) {
-    return fetch(`${config.baseUrl}/cards/likes/${cardId}`, {
-        method: 'DELETE',
-        headers: config.headers
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                return Promise.reject(res.status);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    return sendRequest(`cards/likes/${cardId}`, 'DELETE', {});
 }
 
 function changeProfile(name, about) {
-    return fetch(`${config.baseUrl}/users/me`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: name,
-            about: about
-        })
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                return Promise.reject(res.status);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    return sendRequest(`users/me`, 'PATCH', {
+        name: name,
+        about: about
+    });
 }
 
 function addCard(name, link) {
-    return fetch(`${config.baseUrl}/cards`, {
-        method: 'POST',
-        headers: config.headers,
-        body: JSON.stringify({
-            name: name,
-            link: link
-        })
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                return Promise.reject(res.status);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    return sendRequest(`cards`, 'POST', {
+        name: name,
+        link: link
+    });
 }
 
 function changeAvatar(url) {
-    return fetch(`${config.baseUrl}/users/me/avatar`, {
-        method: 'PATCH',
-        headers: config.headers,
-        body: JSON.stringify({
-            avatar: url
-        })
-    })
-        .then((res) => {
-            if (res.ok) {
-                return res.json();
-            }
-            else {
-                return Promise.reject(res.status);
-            }
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    return sendRequest(`users/me/avatar`, 'PATCH', {
+        avatar: url
+    });
 }
 
 export { getInitialCards, getUserInfo, deleteCard, likeCard, unlikeCard, changeProfile, addCard, changeAvatar }
