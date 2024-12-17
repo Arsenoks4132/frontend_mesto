@@ -193,12 +193,10 @@ cardsList.addEventListener('click', (event) => {
             .then(data => cardLikeAmount.textContent = data.likes.length)
             .catch(err => console.log(`Ошибка: ${err}`))
     }
-    else if (event.target.classList.contains('.card__delete-button')) {
+    else if (event.target.classList.contains('card__delete-button')) {
         const likedCard = event.target.closest('.places__item');
-        if (userId === likedCard.id) {
-            deleteCard(likedCard.id)
-                .then(data => likedCard.remove())
-                .catch(err => console.log(`Ошибка: ${err}`));
-        }
+        deleteCard(likedCard.id)
+            .then(data => likedCard.remove())
+            .catch(err => console.log(`Ошибка: ${err}`));
     }
 });
